@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection System</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Object Detection System</h1>
+        
+        <!-- Controls Section -->
+        <div class="controls">
+            <div class="control-group">
+                <h3>Camera Controls</h3>
+                <button id="startCamera">Start Camera</button>
+                <button id="stopCamera">Stop Camera</button>
+                <button id="startDetection">Start Detection</button>
+                <button id="stopDetection">Stop Detection</button>
+            </div>
+            
+            <div class="control-group">
+                <h3>Configuration</h3>
+                <label>
+                    Confidence Threshold:
+                    <input type="range" id="confidenceSlider" min="0.1" max="1.0" step="0.1" value="0.5">
+                    <span id="confidenceValue">0.5</span>
+                </label>
+                <label>
+                    Exit Threshold:
+                    <input type="number" id="exitThreshold" min="10" max="200" value="50">
+                    seconds
+                </label>
+                <button id="updateConfig">Update Config</button>
+            </div>
+            
+            <div class="control-group">
+                <h3>Database</h3>
+                <label>Host: <input type="text" id="dbHost" placeholder="localhost"></label>
+                <label>User: <input type="text" id="dbUser" placeholder="root"></label>
+                <label>Password: <input type="password" id="dbPassword" placeholder="password"></label>
+                <label>Database: <input type="text" id="dbName" placeholder="database_name"></label>
+                <button id="testDb">Test Database</button>
+                <button id="loadRecords">Load Records</button>
+            </div>
+        </div>
+        
+        <!-- Status Messages -->
+        <div id="statusMessages" class="status-messages"></div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Video Feed -->
+            <div class="video-section">
+                <h3>Camera Feed</h3>
+                <div id="videoContainer" class="video-container">
+                    <div id="videoPlaceholder">Camera not started</div>
+                </div>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="stats-section">
+                <h3>Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Entries:</span>
+                        <span id="totalEntries" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Exits:</span>
+                        <span id="totalExits" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Currently Present:</span>
+                        <span id="presentObjects" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detection Results -->
+        <div class="results-section">
+            <div class="detections">
+                <h3>Current Detections</h3>
+                <div id="detectionsList" class="detections-list">
+                    <p>No detections</p>
+                </div>
+            </div>
+            
+            <div class="tracking">
+                <h3>Object Tracking</h3>
+                <div id="trackingList" class="tracking-list">
+                    <p>No objects being tracked</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Database Records -->
+        <div class="database-section">
+            <h3>Database Records</h3>
+            <div id="recordsContainer" class="records-container">
+                <table id="recordsTable" class="records-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Object</th>
+                            <th>Date/Time</th>
+                            <th>Entry Time</th>
+                            <th>Exit Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6">No records loaded</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="static/js/script.js"></script>
+</body>
+</html>
